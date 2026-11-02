@@ -21,9 +21,9 @@ export default function ContactPage() {
   return (
     <main id="main-content" lang="en">
       <PageIntro
-        description="Questions, ideas, partnerships or simply a hello—we'd be glad to hear from you."
+        description="Questions, ideas, partnerships or simply a helloâ€”we'd be glad to hear from you."
         eyebrow="Contact"
-        title="Let’s start a conversation."
+        title="Letâ€™s start a conversation."
         tone="sage"
       />
       <section className="contact-section section-pad">
@@ -56,13 +56,6 @@ export default function ContactPage() {
             <p className="eyebrow">Write to us</p>
             <h2>We&apos;re listening.</h2>
           </div>
-          {!deliveryConfigured ? (
-            <p className="form-setup-note" role="note">
-              Online message delivery is not configured yet. Add the email
-              delivery settings in the server environment before enabling
-              submissions.
-            </p>
-          ) : null}
           <ContactForm serviceReady={deliveryConfigured} />
         </div>
       </section>
