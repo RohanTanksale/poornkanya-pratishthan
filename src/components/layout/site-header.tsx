@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -6,12 +6,12 @@ import { usePathname } from "next/navigation";
 
 const navigation = [
   { label: "Home", href: "/en" },
-  { label: "About", href: "/en/about" },
-  { label: "Vision", href: "/en/vision" },
-  { label: "Programmes", href: "/en/programmes" },
-  { label: "Events", href: "/en/events" },
-  { label: "Leadership", href: "/en/leadership" },
-  { label: "Branches", href: "/en/branches" },
+  { label: "About", href: "/about" },
+  { label: "Vision", href: "/vision" },
+  { label: "Programmes", href: "/programmes" },
+  { label: "Events", href: "/events" },
+  { label: "Leadership", href: "/leadership" },
+  { label: "Branches", href: "/branches" },
 ];
 
 export function SiteHeader() {
@@ -86,7 +86,7 @@ export function SiteHeader() {
 
         <div className="premium-header-actions">
           <Link
-            href="/en/apply"
+            href="/apply"
             className="premium-join-button"
           >
             Join Us <span aria-hidden="true">↗</span>
@@ -127,7 +127,7 @@ export function SiteHeader() {
           ))}
 
           <Link
-            href="/en/apply"
+            href="/apply"
             tabIndex={menuOpen ? 0 : -1}
             className="premium-mobile-join"
             onClick={() => setMenuOpen(false)}
@@ -139,4 +139,3 @@ export function SiteHeader() {
     </header>
   );
 }
-
