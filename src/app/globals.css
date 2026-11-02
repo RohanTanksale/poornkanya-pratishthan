@@ -6364,3 +6364,53 @@ body {
   }
 }
 
+
+/* ===== VISUAL ENHANCEMENTS ===== */
+
+.vision-preview-grid article,
+.theme-grid > *,
+.initiative-interest-card,
+.home-beliefs-grid article,
+.committee-grid > *,
+.roadmap-item,
+.programme-card,
+.event-card {
+    transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+    border-radius: 14px;
+}
+
+.vision-preview-grid article:hover,
+.theme-grid > *:hover,
+.initiative-interest-card:hover,
+.home-beliefs-grid article:hover,
+.committee-grid > *:hover,
+.roadmap-item:hover,
+.programme-card:hover,
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-subtle);
+    border-color: var(--rose);
+}
+
+.premium-header {
+    background: rgb(250 247 242 / 88%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgb(101 36 60 / 8%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+/* ===== END VISUAL ENHANCEMENTS ===== */
