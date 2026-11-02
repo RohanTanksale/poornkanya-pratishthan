@@ -1,105 +1,142 @@
+﻿"use client";
 
-"use client";
-
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
-import { navigation } from "@/data/site";
-import { BrandMark } from "@/components/ui/brand-mark";
+
+const navigation = [
+  { label: "Home", href: "/en" },
+  { label: "About", href: "/en/about" },
+  { label: "Vision", href: "/en/vision" },
+  { label: "Programmes", href: "/en/programmes" },
+  { label: "Events", href: "/en/events" },
+  { label: "Leadership", href: "/en/leadership" },
+  { label: "Branches", href: "/en/branches" },
+];
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [menuOpenedOnPath, setMenuOpenedOnPath] = useState<string | null>(
-    null,
-  );
-  const menuToggleRef = useRef<HTMLButtonElement>(null);
 
-  const isMenuOpen =
-    menuOpen && menuOpenedOnPath === pathname;
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
 
-  function closeMenu() {
-    setMenuOpen(false);
-  }
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-  function toggleMenu() {
-    if (isMenuOpen) {
-      closeMenu();
-      return;
-    }
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    setMenuOpenedOnPath(pathname);
-    setMenuOpen(true);
-  }
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    document.body.classList.toggle("navigation-menu-open", menuOpen);
+
+    return () => {
+      document.body.classList.remove("navigation-menu-open");
+    };
+  }, [menuOpen]);
+
+  const isActive = (href: string) =>
+    href === "/en"
+      ? pathname === "/en" || pathname === "/en/"
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="site-header">
-      <div className="header-inner">
+    <header className={`premium-header ${scrolled ? "is-scrolled" : ""}`}>
+      <div className="premium-header-inner">
+
         <Link
-          aria-label="Poornakanya Pratishthan home"
-          className="brand"
           href="/en"
-          onClick={closeMenu}
+          className="premium-brand"
+          aria-label="Poornakanya Pratishthan home"
+          onClick={() => setMenuOpen(false)}
         >
-          <BrandMark />
-          <span className="brand-copy">
-            <span className="brand-name">Poornakanya</span>
-            <span className="brand-subtitle">Pratishthan</span>
+          <span className="premium-brand-mark">P</span>
+          <span className="premium-brand-name">
+            Poornakanya
+            <span>Pratishthan</span>
           </span>
         </Link>
 
-        <button
-          aria-controls="primary-navigation"
-          aria-expanded={isMenuOpen}
-          aria-label={
-            isMenuOpen
-              ? "Close navigation menu"
-              : "Open navigation menu"
-          }
-          className={`menu-toggle${isMenuOpen ? " is-open" : ""}`}
-          onClick={toggleMenu}
-          ref={menuToggleRef}
-          type="button"
-        >
-          <span />
-          <span />
-        </button>
+        <nav className="premium-desktop-nav" aria-label="Main navigation">
+          {navigation.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`premium-nav-link ${isActive(item.href) ? "active" : ""}`}
+              aria-current={isActive(item.href) ? "page" : undefined}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-        <nav
-          aria-label="Main navigation"
-          className={`primary-navigation${isMenuOpen ? " is-open" : ""}`}
-          id="primary-navigation"
-        >
-          {navigation
-            .filter((item) => item.href !== "/apply")
-            .map((item) => {
-              const href = item.href;
-              const active =
-                pathname === href || pathname.startsWith(`${href}/`);
+        <div className="premium-header-actions">
+          <Link
+            href="/en/apply"
+            className="premium-join-button"
+          >
+            Join Us <span aria-hidden="true">↗</span>
+          </Link>
 
-              return (
-                <Link
-                  aria-current={active ? "page" : undefined}
-                  className={`nav-link${active ? " is-active" : ""}`}
-                  href={href}
-                  key={item.href}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+          <button
+            type="button"
+            className={`premium-menu-toggle ${menuOpen ? "menu-active" : ""}`}
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={menuOpen}
+            aria-controls="premium-mobile-nav"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span />
+            <span />
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="premium-mobile-nav"
+        className={`premium-mobile-nav ${menuOpen ? "mobile-nav-open" : ""}`}
+        aria-hidden={!menuOpen}
+      >
+        <nav aria-label="Mobile navigation">
+          {navigation.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              tabIndex={menuOpen ? 0 : -1}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={`premium-mobile-link ${isActive(item.href) ? "active" : ""}`}
+              onClick={() => setMenuOpen(false)}
+            >
+              {item.label}
+              <span aria-hidden="true">↗</span>
+            </Link>
+          ))}
 
           <Link
-            aria-current={pathname === "/apply" ? "page" : undefined}
-            className="button button-small header-cta"
-            href="/apply"
-            onClick={closeMenu}
+            href="/en/apply"
+            tabIndex={menuOpen ? 0 : -1}
+            className="premium-mobile-join"
+            onClick={() => setMenuOpen(false)}
           >
-            Apply to join <span aria-hidden="true">↗</span>
+            Become a part of our journey ↗
           </Link>
         </nav>
       </div>
     </header>
   );
 }
+

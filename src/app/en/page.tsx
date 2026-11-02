@@ -7,11 +7,11 @@ import { EventCard } from "@/components/ui/event-card";
 import { PhotoGallery } from "@/components/ui/photo-gallery";
 import { ProgrammeCard } from "@/components/ui/programme-card";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { InitiativeExplorer } from "@/components/home/initiative-explorer";
+import InitiativeInterestCards from "@/components/initiatives/initiative-interest-cards";
 import { saraswatiMahotsav } from "@/data/events";
 import { organisation } from "@/data/organisation";
 import { englishHomePhotos } from "@/data/photo-galleries";
-import { programmeThemes } from "@/data/programmes";
+import { programmeThemes, upcomingInitiatives } from "@/data/programmes";
 import { fiveYearVision } from "@/data/vision";
 import { createPageMetadata } from "@/lib/metadata";
 import { getLeadership } from "@/lib/leadership";
@@ -192,7 +192,7 @@ export default async function EnglishHome() {
         </div>
       </section>
       {/* INTERACTIVE PROGRAMME HIGHLIGHTS */}
-      <InitiativeExplorer />
+      <InitiativeInterestCards initiatives={upcomingInitiatives.slice(0, 4)} />
 {/* EVENTS */}
       <section
         aria-labelledby="home-events-title"
@@ -335,6 +335,9 @@ export default async function EnglishHome() {
 </main>
   );
 }
+
+
+
 
 
 
