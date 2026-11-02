@@ -6174,3 +6174,193 @@ body {
   }
 }
 
+
+/* ==========================================
+   GLOBAL DESIGN SYSTEM REFINEMENTS
+   ========================================== */
+
+:root {
+  --plum: #65243c;
+  --plum-dark: #351827;
+  --plum-soft: #835267;
+  --rose: #c98e9d;
+  --rose-light: #ead4da;
+  --sage: #788878;
+  --sage-dark: #566a5b;
+  --ivory: #faf7f2;
+  --cream: #f1eae0;
+  --paper: #faf7f2;
+  --ink: #282526;
+  --muted: #706a67;
+  --line: #ded6cd;
+  --white: #fffdfa;
+  --gold: #b99a61;
+
+  --font-display: "Iowan Old Style", "Baskerville", "Palatino Linotype", Georgia, serif;
+  --font-body: "Manrope", "Inter", "Segoe UI", Arial, sans-serif;
+
+  --shadow-subtle: 0 10px 30px rgb(53 24 39 / 6%);
+  --shadow-elevated: 0 20px 50px rgb(53 24 39 / 10%);
+  --ease: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  color: var(--white);
+  background: var(--plum);
+}
+
+:focus-visible {
+  outline: 3px solid var(--plum-soft);
+  outline-offset: 3px;
+}
+
+/* Card hover refinements */
+
+.vision-preview-grid article,
+.theme-grid > *,
+.initiative-card,
+.home-beliefs-grid article,
+.committee-grid > *,
+.roadmap-item {
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+  border: 1px solid var(--line);
+  background: var(--white);
+  border-radius: 12px;
+}
+
+.vision-preview-grid article:hover,
+.theme-grid > *:hover,
+.initiative-card:hover,
+.home-beliefs-grid article:hover,
+.committee-grid > *:hover,
+.roadmap-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-subtle);
+  border-color: var(--rose);
+}
+
+/* Buttons and links */
+
+.button {
+  border-radius: 9999px;
+  transition: transform var(--ease), background var(--ease), box-shadow var(--ease);
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgb(101 36 60 / 15%);
+}
+
+.text-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: gap var(--ease), color var(--ease);
+}
+
+.text-link:hover {
+  gap: 0.8rem;
+  color: var(--plum-dark);
+}
+
+/* Header glass effect */
+
+.site-header {
+  background: rgb(250 247 242 / 85%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgb(101 36 60 / 8%);
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* ==========================================
+   FINAL COMPONENT-SPECIFIC VISUAL REFINEMENTS
+   ========================================== */
+
+/* Actual sticky navigation component */
+.premium-header {
+  background: rgb(250 247 242 / 90%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgb(101 36 60 / 10%);
+}
+
+/* Homepage initiative cards */
+.initiative-interest-card,
+.initiative-explorer-card,
+.theme-card,
+.committee-grid > *,
+.vision-preview-grid article,
+.home-beliefs-grid article,
+.roadmap-item,
+.initiative-card {
+  transition:
+    transform var(--ease),
+    box-shadow var(--ease),
+    border-color var(--ease);
+}
+
+.initiative-interest-card:hover,
+.initiative-explorer-card:hover,
+.theme-card:hover,
+.committee-grid > *:hover,
+.vision-preview-grid article:hover,
+.home-beliefs-grid article:hover,
+.roadmap-item:hover,
+.initiative-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-subtle);
+  border-color: var(--rose);
+}
+
+/* Homepage initiative buttons */
+.initiative-interest-button {
+  transition:
+    transform var(--ease),
+    background-color var(--ease),
+    box-shadow var(--ease);
+}
+
+.initiative-interest-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgb(101 36 60 / 15%);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
