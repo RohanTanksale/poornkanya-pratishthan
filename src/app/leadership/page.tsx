@@ -20,7 +20,7 @@ export default async function LeadershipPage() {
       <PageIntro
         description="Meet the mentors and central executive committee of Poornakanya Pratishthan."
         eyebrow="Leadership"
-        title="The people guiding the work."
+        title="The people guiding the worka."
       />
 
       <LeadershipGrid />
