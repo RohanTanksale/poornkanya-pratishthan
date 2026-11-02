@@ -17,13 +17,13 @@ export const leadershipRoles = [
 ] as const;
 
 export const leadership: Leader[] = [
-  { name: "Bhavana Ramnath Iyer", role: "President" },
-  { name: "Rasika Hemant Joshi", role: "Vice President" },
-  { name: "Sadhana Dnyanesh Sudame", role: "Working President" },
-  { name: "Avani Shinde", role: "Secretary" },
-  { name: "Kimaya Paithankar", role: "Joint Secretary" },
-  { name: "Kasturi Joshi", role: "Treasurer" },
-  { name: "Ishani Kulkarni", role: "Joint Treasurer" },
-  { name: "Nishigandha Thadave", role: "Outreach Coordinator" },
-  { name: "Sampada Parnerkar", role: "Outreach Coordinator" },
+  { name: "Ananya Sharma", role: "President" },
+  { name: "Meera Deshmukh", role: "Vice President" },
+  { name: "Kavya Patil", role: "Working President" },
+  { name: "Aarohi Kulkarni", role: "Secretary" },
+  { name: "Ira Joshi", role: "Joint Secretary" },
+  { name: "Saanvi Mehta", role: "Treasurer" },
+  { name: "Riya Nair", role: "Joint Treasurer" },
+  { name: "Diya Shah", role: "Outreach Coordinator" },
+  { name: "Tanvi Rao", role: "Outreach Coordinator" },
 ];
