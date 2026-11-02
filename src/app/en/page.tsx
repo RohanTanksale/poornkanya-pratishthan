@@ -1,5 +1,4 @@
-﻿import { FeatureSuite } from "@/components/home/feature-suite";
-
+﻿
 import Image from "next/image";
 import Link from "next/link";
 import { CommitteeMemberCard } from "@/components/ui/committee-member-card";
@@ -333,9 +332,9 @@ export default async function EnglishHome() {
           Get in touch <span aria-hidden="true">↗</span>
         </Link>
       </section>
-    <FeatureSuite />
 </main>
   );
 }
+
 
 
