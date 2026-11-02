@@ -34,9 +34,9 @@ export function SiteFooter() {
           </div>
           </nav>
           <nav aria-label="Membership and policies" className="footer-link-group">
-            <h2>Membership & policies</h2>
+            
             <div className="footer-link-list">
-              <Link href="/apply">Apply to join</Link>
+              
               <Link href="/terms">Terms and Conditions</Link>
               <Link href="/privacy">Privacy Policy</Link>
             </div>
