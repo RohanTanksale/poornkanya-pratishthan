@@ -1,3 +1,4 @@
+﻿
 import Image from "next/image";
 import Link from "next/link";
 import { CommitteeMemberCard } from "@/components/ui/committee-member-card";
@@ -6,10 +7,11 @@ import { EventCard } from "@/components/ui/event-card";
 import { PhotoGallery } from "@/components/ui/photo-gallery";
 import { ProgrammeCard } from "@/components/ui/programme-card";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { InitiativeExplorer } from "@/components/home/initiative-explorer";
 import { saraswatiMahotsav } from "@/data/events";
 import { organisation } from "@/data/organisation";
 import { englishHomePhotos } from "@/data/photo-galleries";
-import { programmeThemes, upcomingInitiatives } from "@/data/programmes";
+import { programmeThemes } from "@/data/programmes";
 import { fiveYearVision } from "@/data/vision";
 import { createPageMetadata } from "@/lib/metadata";
 import { getLeadership } from "@/lib/leadership";
@@ -27,31 +29,38 @@ export default async function EnglishHome() {
 
   return (
     <main id="main-content" lang="en">
+      {/* HERO SECTION */}
       <section aria-labelledby="home-title" className="home-hero">
         <div className="hero-copy">
           <p className="eyebrow">Poornakanya Pratishthan · Since 2006</p>
+
           <h1 id="home-title">
             Supporting girls to shape
             <br />
             <em>their own futures.</em>
           </h1>
+
           <p className="hero-description">
             Education, values and guidance can help girls and young women
             recognise their potential and grow with confidence.
           </p>
+
           <div className="hero-actions">
             <Link className="button" href="/apply">
               Apply to join <span aria-hidden="true">↗</span>
             </Link>
+
             <Link className="button button-outline" href="/about">
               About the organisation <span aria-hidden="true">→</span>
             </Link>
           </div>
+
           <p className="hero-note">
             Learning <span aria-hidden="true">·</span> Values{" "}
             <span aria-hidden="true">·</span> Development
           </p>
         </div>
+
         <div className="hero-art">
           <Image
             alt="Abstract illustration representing growth and connection"
@@ -61,45 +70,65 @@ export default async function EnglishHome() {
             sizes="(max-width: 760px) 100vw, 52vw"
             src="/images/community-illustration.svg"
           />
-          <span className="art-caption">An illustration of shared possibility</span>
+
+          <span className="art-caption">
+            An illustration of shared possibility
+          </span>
         </div>
       </section>
 
-      <section aria-labelledby="introduction-title" className="intro-section section-pad">
+      {/* INTRODUCTION SECTION */}
+      <section
+        aria-labelledby="introduction-title"
+        className="intro-section section-pad"
+      >
         <div className="intro-content">
           <p className="eyebrow">About the organisation</p>
+
           <h2 id="introduction-title">
             Potential nurtured.
             <br />
             <em>Confidence strengthened.</em>
           </h2>
+
           <div className="intro-bottom">
             <p>{organisation.purpose}</p>
+
             <Link className="text-link" href="/about">
               Read more about us <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </div>
-        <span aria-hidden="true" className="intro-decoration">P</span>
+
+        <span aria-hidden="true" className="intro-decoration">
+          P
+        </span>
       </section>
 
-      <section aria-labelledby="mission-vision-title" className="home-beliefs section-pad">
+      {/* MISSION AND VISION */}
+      <section
+        aria-labelledby="mission-vision-title"
+        className="home-beliefs section-pad"
+      >
         <SectionHeading
           description="The organisation's purpose and Poornawadi philosophy guide its work."
           eyebrow="Purpose & direction"
           title="Growth that reaches beyond the individual."
           id="mission-vision-title"
         />
+
         <div className="home-beliefs-grid">
           <article>
             <p className="eyebrow">Our mission</p>
             <h3>Support girls during their formative years.</h3>
             <p>{organisation.purpose}</p>
           </article>
+
           <article>
             <p className="eyebrow">Our vision</p>
             <h3>From individual development to a wider community.</h3>
             <p>{organisation.philosophy}</p>
+
             <Link className="text-link" href="/vision">
               Explore the five-year vision <span aria-hidden="true">↗</span>
             </Link>
@@ -107,7 +136,11 @@ export default async function EnglishHome() {
         </div>
       </section>
 
-      <section aria-labelledby="home-vision-title" className="home-vision section-pad">
+      {/* FIVE-YEAR VISION */}
+      <section
+        aria-labelledby="home-vision-title"
+        className="home-vision section-pad"
+      >
         <div className="section-topline">
           <SectionHeading
             description="Priorities shared by the organisation for its next five years."
@@ -115,10 +148,12 @@ export default async function EnglishHome() {
             title="A shared path forward."
             id="home-vision-title"
           />
+
           <Link className="text-link" href="/vision">
             Read the full vision <span aria-hidden="true">↗</span>
           </Link>
         </div>
+
         <div className="vision-preview-grid">
           {fiveYearVision.slice(0, 3).map((priority) => (
             <article key={priority.title}>
@@ -129,7 +164,11 @@ export default async function EnglishHome() {
         </div>
       </section>
 
-      <section aria-labelledby="activities-title" className="focus-section section-pad">
+      {/* ACTIVITIES */}
+      <section
+        aria-labelledby="activities-title"
+        className="focus-section section-pad"
+      >
         <div className="section-topline">
           <SectionHeading
             description="Activities documented by the organisation create opportunities to learn, express ideas and connect."
@@ -137,39 +176,28 @@ export default async function EnglishHome() {
             title="A place to learn and grow."
             id="activities-title"
           />
+
           <Link className="text-link" href="/programmes">
             Explore all activities <span aria-hidden="true">↗</span>
           </Link>
         </div>
+
         <div className="theme-grid">
           {programmeThemes.map((programme) => (
-            <ProgrammeCard key={programme.number} programme={programme} />
+            <ProgrammeCard
+              key={programme.number}
+              programme={programme}
+            />
           ))}
         </div>
       </section>
-
-      <section aria-labelledby="programmes-title" className="home-initiatives section-pad">
-        <SectionHeading
-          description="These are initiatives being planned, not confirmed or dated programmes."
-          eyebrow="Programme highlights"
-          title="Ideas taking shape."
-          id="programmes-title"
-        />
-        <div className="home-initiative-grid">
-          {upcomingInitiatives.slice(0, 3).map((initiative) => (
-            <article key={initiative.title}>
-              <p className="eyebrow">Planned initiative</p>
-              <h3>{initiative.title}</h3>
-              <p>{initiative.description}</p>
-            </article>
-          ))}
-        </div>
-        <Link className="text-link" href="/programmes">
-          View programmes and initiatives <span aria-hidden="true">↗</span>
-        </Link>
-      </section>
-
-      <section aria-labelledby="home-events-title" className="home-events-section section-pad">
+      {/* INTERACTIVE PROGRAMME HIGHLIGHTS */}
+      <InitiativeExplorer />
+{/* EVENTS */}
+      <section
+        aria-labelledby="home-events-title"
+        className="home-events-section section-pad"
+      >
         <div className="section-topline">
           <SectionHeading
             description="Event information is shown only when supported by the organisation's source material."
@@ -177,15 +205,21 @@ export default async function EnglishHome() {
             title="Together in learning and celebration."
             id="home-events-title"
           />
+
           <Link className="text-link" href="/events">
             All events <span aria-hidden="true">↗</span>
           </Link>
         </div>
+
         <div className="home-events-grid">
           <section aria-labelledby="home-upcoming-title">
-            <h3 id="home-upcoming-title" className="home-event-section-title">
+            <h3
+              id="home-upcoming-title"
+              className="home-event-section-title"
+            >
               Upcoming events
             </h3>
+
             <EmptyState
               description="No confirmed upcoming event dates are available to share at this time."
               headingId="home-upcoming-empty"
@@ -197,10 +231,15 @@ export default async function EnglishHome() {
               </Link>
             </EmptyState>
           </section>
+
           <section aria-labelledby="home-past-title">
-            <h3 id="home-past-title" className="home-event-section-title">
+            <h3
+              id="home-past-title"
+              className="home-event-section-title"
+            >
               Past event
             </h3>
+
             <EventCard
               date={`${saraswatiMahotsav.dates} · year not supplied`}
               description={saraswatiMahotsav.summary}
@@ -212,7 +251,11 @@ export default async function EnglishHome() {
         </div>
       </section>
 
-      <section aria-labelledby="home-leadership-title" className="home-leadership section-pad">
+      {/* LEADERSHIP */}
+      <section
+        aria-labelledby="home-leadership-title"
+        className="home-leadership section-pad"
+      >
         <div className="updates-heading">
           <SectionHeading
             description="Committee members are presented with their supplied names and official designations."
@@ -220,17 +263,24 @@ export default async function EnglishHome() {
             title="The people guiding the work."
             id="home-leadership-title"
           />
+
           <Link className="text-link" href="/leadership">
             Meet the committee <span aria-hidden="true">↗</span>
           </Link>
         </div>
+
         <div className="committee-grid committee-grid-compact">
           {leadership.slice(0, 3).map((member, index) => (
-            <CommitteeMemberCard index={index} key={member.name} member={member} />
+            <CommitteeMemberCard
+              index={index}
+              key={member.name}
+              member={member}
+            />
           ))}
         </div>
       </section>
 
+      {/* GALLERY */}
       <PhotoGallery
         description="Only approved organisational photographs are shown here. No such photographs are currently available."
         eyebrow="Gallery preview"
@@ -242,30 +292,42 @@ export default async function EnglishHome() {
         </Link>
       </PhotoGallery>
 
-      <section aria-labelledby="membership-title" className="home-membership-cta">
+      {/* MEMBERSHIP CTA */}
+      <section
+        aria-labelledby="membership-title"
+        className="home-membership-cta"
+      >
         <div>
           <p className="eyebrow">Membership</p>
-          <h2 id="membership-title">Bring your curiosity and your voice.</h2>
+
+          <h2 id="membership-title">
+            Bring your curiosity and your voice.
+          </h2>
+
           <p>
             The organisation currently lists an eligibility age of{" "}
             {organisation.eligibleAge}. Applications are reviewed by the
             organisation and do not guarantee membership.
           </p>
         </div>
+
         <Link className="button button-light" href="/apply">
           Read the instructions and apply <span aria-hidden="true">↗</span>
         </Link>
       </section>
 
+      {/* CONTACT CTA */}
       <section aria-labelledby="home-contact-title" className="home-cta">
         <div>
           <p className="eyebrow">Contact</p>
+
           <h2 id="home-contact-title">
             Start a conversation.
             <br />
             <em>We would be glad to hear from you.</em>
           </h2>
         </div>
+
         <Link className="button button-light" href="/contact">
           Get in touch <span aria-hidden="true">↗</span>
         </Link>
@@ -273,3 +335,4 @@ export default async function EnglishHome() {
     </main>
   );
 }
+
