@@ -6414,3 +6414,91 @@ body {
 }
 
 /* ===== END VISUAL ENHANCEMENTS ===== */
+
+/* ==========================================================
+   POORNAKANYA PRATISHTHAN — PROFESSIONAL ENTRANCE ANIMATIONS
+   ========================================================== */
+
+@keyframes pkFadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes pkFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Main page sections */
+main > section {
+  animation: pkFadeIn 0.7s ease-out both;
+}
+
+/* Section headings */
+main > section h1,
+main > section h2,
+main > section h3 {
+  animation: pkFadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Common cards and content grids */
+main article,
+.vision-preview-grid article,
+.theme-grid > *,
+.initiative-card,
+.home-beliefs-grid article,
+.committee-grid > *,
+.roadmap-item,
+.programme-card,
+.event-card {
+  animation: pkFadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Subtle stagger effect */
+main article:nth-child(2),
+.vision-preview-grid article:nth-child(2),
+.theme-grid > *:nth-child(2),
+.committee-grid > *:nth-child(2) {
+  animation-delay: 0.10s;
+}
+
+main article:nth-child(3),
+.vision-preview-grid article:nth-child(3),
+.theme-grid > *:nth-child(3),
+.committee-grid > *:nth-child(3) {
+  animation-delay: 0.20s;
+}
+
+main article:nth-child(4),
+.vision-preview-grid article:nth-child(4),
+.theme-grid > *:nth-child(4),
+.committee-grid > *:nth-child(4) {
+  animation-delay: 0.30s;
+}
+
+/* Respect accessibility preferences */
+@media (prefers-reduced-motion: reduce) {
+  main > section,
+  main > section h1,
+  main > section h2,
+  main > section h3,
+  main article,
+  .vision-preview-grid article,
+  .theme-grid > *,
+  .initiative-card,
+  .home-beliefs-grid article,
+  .committee-grid > *,
+  .roadmap-item,
+  .programme-card,
+  .event-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
