@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { CommitteeMemberCard } from "@/components/ui/committee-member-card";
+import { EmptyState } from "@/components/ui/empty-state";
+import { EventCard } from "@/components/ui/event-card";
 import { PhotoGallery } from "@/components/ui/photo-gallery";
-import { PhilosophyProfileCard } from "@/components/ui/philosophy-profile-card";
-import { historicalRegions, initialPhaseFigures } from "@/data/branches";
+import { ProgrammeCard } from "@/components/ui/programme-card";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { saraswatiMahotsav } from "@/data/events";
 import { organisation } from "@/data/organisation";
 import { englishHomePhotos } from "@/data/photo-galleries";
@@ -17,7 +18,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata = createPageMetadata(
   "Home",
-  "Discover Poornakanya Pratishthan, established in 2006 to support the holistic development of girls and young women.",
+  "Learn how Poornakanya Pratishthan supports the development of girls and young women through education, values, guidance and community.",
   "/en",
 );
 
@@ -26,34 +27,34 @@ export default async function EnglishHome() {
 
   return (
     <main id="main-content" lang="en">
-      <section className="home-hero">
+      <section aria-labelledby="home-title" className="home-hero">
         <div className="hero-copy">
           <p className="eyebrow">Poornakanya Pratishthan · Since 2006</p>
-          <h1>
-            A future shaped
+          <h1 id="home-title">
+            Supporting girls to shape
             <br />
-            by <em>young women.</em>
+            <em>their own futures.</em>
           </h1>
           <p className="hero-description">
-            Nurturing the potential, confidence and holistic development of
-            girls and young women.
+            Education, values and guidance can help girls and young women
+            recognise their potential and grow with confidence.
           </p>
           <div className="hero-actions">
-            <Link className="button" href="/about">
-              Discover our purpose <span aria-hidden="true">↗</span>
+            <Link className="button" href="/apply">
+              Apply to join <span aria-hidden="true">↗</span>
             </Link>
-            <Link className="text-link" href="/programmes">
-              Explore programmes <span aria-hidden="true">→</span>
+            <Link className="button button-outline" href="/about">
+              About the organisation <span aria-hidden="true">→</span>
             </Link>
           </div>
-          <div className="hero-note">
-            <span className="hero-note-line" />
-            <span>Learning · Values · Development</span>
-          </div>
+          <p className="hero-note">
+            Learning <span aria-hidden="true">·</span> Values{" "}
+            <span aria-hidden="true">·</span> Development
+          </p>
         </div>
         <div className="hero-art">
           <Image
-            alt="Original illustration representing connection, growth and possibility"
+            alt="Abstract illustration representing growth and connection"
             className="hero-illustration"
             fill
             priority
@@ -61,23 +62,13 @@ export default async function EnglishHome() {
             src="/images/community-illustration.svg"
           />
           <span className="art-caption">An illustration of shared possibility</span>
-          <span aria-hidden="true" className="art-seal">
-            <span>Every voice</span>
-            <span>can shape</span>
-            <span>what comes next</span>
-          </span>
         </div>
-        <span aria-hidden="true" className="hero-index">01 / 07</span>
       </section>
 
-      <section className="intro-section section-pad">
-        <div className="intro-aside">
-          <span className="vertical-label">A shared direction</span>
-          <span aria-hidden="true" className="aside-line" />
-        </div>
+      <section aria-labelledby="introduction-title" className="intro-section section-pad">
         <div className="intro-content">
-          <p className="eyebrow">Our purpose</p>
-          <h2>
+          <p className="eyebrow">About the organisation</p>
+          <h2 id="introduction-title">
             Potential nurtured.
             <br />
             <em>Confidence strengthened.</em>
@@ -85,136 +76,49 @@ export default async function EnglishHome() {
           <div className="intro-bottom">
             <p>{organisation.purpose}</p>
             <Link className="text-link" href="/about">
-              About the organisation <span aria-hidden="true">↗</span>
+              Read more about us <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </div>
         <span aria-hidden="true" className="intro-decoration">P</span>
       </section>
 
-      <section className="philosophy-section section-pad">
+      <section aria-labelledby="mission-vision-title" className="home-beliefs section-pad">
         <SectionHeading
-          description={organisation.philosophy}
-          eyebrow="Poornawadi philosophy"
-          title="From the individual to the world."
+          description="The organisation's purpose and Poornawadi philosophy guide its work."
+          eyebrow="Purpose & direction"
+          title="Growth that reaches beyond the individual."
+          id="mission-vision-title"
         />
-        <div className="growth-sequence" aria-label="Individual, family, society, nation, world">
-          {["Individual", "Family", "Society", "Nation", "World"].map((stage, index) => (
-            <span key={stage}>
-              {stage}{index < 4 ? <span aria-hidden="true"> → </span> : null}
-            </span>
-          ))}
-        </div>
-        <div className="philosophy-profile-grid">
-          {organisation.philosophyProfiles.map((profile) => (
-            <PhilosophyProfileCard key={profile.name} {...profile} />
-          ))}
-        </div>
-        <div className="dimensions-grid">
-          {organisation.dimensions.map((dimension) => (
-            <article key={dimension.term}>
-              <h3>{dimension.term}</h3>
-              <p>{dimension.description}</p>
-            </article>
-          ))}
+        <div className="home-beliefs-grid">
+          <article>
+            <p className="eyebrow">Our mission</p>
+            <h3>Support girls during their formative years.</h3>
+            <p>{organisation.purpose}</p>
+          </article>
+          <article>
+            <p className="eyebrow">Our vision</p>
+            <h3>From individual development to a wider community.</h3>
+            <p>{organisation.philosophy}</p>
+            <Link className="text-link" href="/vision">
+              Explore the five-year vision <span aria-hidden="true">↗</span>
+            </Link>
+          </article>
         </div>
       </section>
 
-      <section className="focus-section section-pad">
+      <section aria-labelledby="home-vision-title" className="home-vision section-pad">
         <div className="section-topline">
           <SectionHeading
-            description="Study camps, singing competitions, cultural programmes, discussions, seminars and expert guidance create opportunities to learn and connect."
-            eyebrow="Programmes & activities"
-            title="A place to learn and grow."
+            description="Priorities shared by the organisation for its next five years."
+            eyebrow="Five-year vision"
+            title="A shared path forward."
+            id="home-vision-title"
           />
-          <Link className="text-link" href="/programmes">
-            All programmes <span aria-hidden="true">↗</span>
+          <Link className="text-link" href="/vision">
+            Read the full vision <span aria-hidden="true">↗</span>
           </Link>
         </div>
-        <div className="theme-grid">
-          {programmeThemes.map((programme) => (
-            <article className={`theme-card theme-${programme.tone}`} key={programme.number}>
-              <span className="theme-number">{programme.number}</span>
-              <div className="theme-card-copy">
-                <h3>{programme.title}</h3>
-                <p>{programme.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="home-initiatives section-pad">
-        <SectionHeading
-          description="Ideas being planned for future participation. These are initiatives in planning, not completed programmes."
-          eyebrow="Upcoming activities & initiatives"
-          title="What we hope to build together."
-        />
-        <div className="home-initiative-grid">
-          {upcomingInitiatives.slice(0, 4).map((initiative) => (
-            <article key={initiative.title}>
-              <p className="eyebrow">Planned initiative</p>
-              <h3>{initiative.title}</h3>
-              <p>{initiative.description}</p>
-            </article>
-          ))}
-        </div>
-        <Link className="text-link" href="/programmes">
-          See all planned initiatives <span aria-hidden="true">↗</span>
-        </Link>
-      </section>
-
-      <PhotoGallery
-        description="A place for authentic photographs from Poornakanya Pratishthan's community and activities."
-        eyebrow="A visual record"
-        photos={englishHomePhotos}
-        title="Moments from our community."
-      />
-
-      <section className="featured-event section-pad">
-        <div className="featured-event-heading">
-          <p className="eyebrow">The first major celebration</p>
-          <h2>{saraswatiMahotsav.title}</h2>
-          <p>{saraswatiMahotsav.summary}</p>
-          <Link className="text-link" href="/events">
-            Event details <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-        <div className="event-facts">
-          <p><strong>Dates</strong><span>{saraswatiMahotsav.dates}; year not supplied</span></p>
-          <p><strong>Location</strong><span>{saraswatiMahotsav.location}</span></p>
-          <p><strong>Upcoming activities</strong><span>{upcomingInitiatives.slice(0, 3).map((item) => item.title).join(" · ")}</span></p>
-        </div>
-      </section>
-
-      <section className="home-leadership section-pad">
-        <div className="updates-heading">
-          <SectionHeading
-            eyebrow="Central executive committee"
-            title="Leadership by name and role."
-            description="Committee members are presented only with their full name and official designation."
-          />
-          <Link className="text-link" href="/leadership">
-            View committee <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-        <div className="committee-grid committee-grid-compact">
-          {leadership.slice(0, 3).map((member, index) => (
-            <CommitteeMemberCard
-              index={index}
-              key={member.name}
-              member={member}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className="home-vision section-pad">
-        <SectionHeading
-          description="A five-year direction shaped around learning, inclusion, connection and organisational growth."
-          eyebrow="Looking ahead"
-          title="A vision for the next five years."
-        />
         <div className="vision-preview-grid">
           {fiveYearVision.slice(0, 3).map((priority) => (
             <article key={priority.title}>
@@ -223,36 +127,147 @@ export default async function EnglishHome() {
             </article>
           ))}
         </div>
-        <Link className="text-link" href="/vision">
-          Explore the vision <span aria-hidden="true">↗</span>
-        </Link>
       </section>
 
-      <section className="branches-history section-pad">
-        <SectionHeading
-          description={`Historical initial-phase figures: ${initialPhaseFigures.branches} branches and ${initialPhaseFigures.members} members. They are not current statistics.`}
-          eyebrow="A widening circle"
-          title="A presence across regions."
-        />
-        <div className="region-list">
-          {historicalRegions.map((region) => <span key={region}>{region}</span>)}
+      <section aria-labelledby="activities-title" className="focus-section section-pad">
+        <div className="section-topline">
+          <SectionHeading
+            description="Activities documented by the organisation create opportunities to learn, express ideas and connect."
+            eyebrow="Activities"
+            title="A place to learn and grow."
+            id="activities-title"
+          />
+          <Link className="text-link" href="/programmes">
+            Explore all activities <span aria-hidden="true">↗</span>
+          </Link>
         </div>
-        <Link className="text-link" href="/branches">
-          About the branch network <span aria-hidden="true">↗</span>
+        <div className="theme-grid">
+          {programmeThemes.map((programme) => (
+            <ProgrammeCard key={programme.number} programme={programme} />
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="programmes-title" className="home-initiatives section-pad">
+        <SectionHeading
+          description="These are initiatives being planned, not confirmed or dated programmes."
+          eyebrow="Programme highlights"
+          title="Ideas taking shape."
+          id="programmes-title"
+        />
+        <div className="home-initiative-grid">
+          {upcomingInitiatives.slice(0, 3).map((initiative) => (
+            <article key={initiative.title}>
+              <p className="eyebrow">Planned initiative</p>
+              <h3>{initiative.title}</h3>
+              <p>{initiative.description}</p>
+            </article>
+          ))}
+        </div>
+        <Link className="text-link" href="/programmes">
+          View programmes and initiatives <span aria-hidden="true">↗</span>
         </Link>
       </section>
 
-      <section className="home-cta">
+      <section aria-labelledby="home-events-title" className="home-events-section section-pad">
+        <div className="section-topline">
+          <SectionHeading
+            description="Event information is shown only when supported by the organisation's source material."
+            eyebrow="Events & gatherings"
+            title="Together in learning and celebration."
+            id="home-events-title"
+          />
+          <Link className="text-link" href="/events">
+            All events <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+        <div className="home-events-grid">
+          <section aria-labelledby="home-upcoming-title">
+            <h3 id="home-upcoming-title" className="home-event-section-title">
+              Upcoming events
+            </h3>
+            <EmptyState
+              description="No confirmed upcoming event dates are available to share at this time."
+              headingId="home-upcoming-empty"
+              headingLevel="h4"
+              title="No upcoming events announced."
+            >
+              <Link className="text-link" href="/contact">
+                Contact us for information <span aria-hidden="true">↗</span>
+              </Link>
+            </EmptyState>
+          </section>
+          <section aria-labelledby="home-past-title">
+            <h3 id="home-past-title" className="home-event-section-title">
+              Past event
+            </h3>
+            <EventCard
+              date={`${saraswatiMahotsav.dates} · year not supplied`}
+              description={saraswatiMahotsav.summary}
+              href="/events/saraswati-mahotsav"
+              location={saraswatiMahotsav.location}
+              title={saraswatiMahotsav.title}
+            />
+          </section>
+        </div>
+      </section>
+
+      <section aria-labelledby="home-leadership-title" className="home-leadership section-pad">
+        <div className="updates-heading">
+          <SectionHeading
+            description="Committee members are presented with their supplied names and official designations."
+            eyebrow="Central executive committee"
+            title="The people guiding the work."
+            id="home-leadership-title"
+          />
+          <Link className="text-link" href="/leadership">
+            Meet the committee <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+        <div className="committee-grid committee-grid-compact">
+          {leadership.slice(0, 3).map((member, index) => (
+            <CommitteeMemberCard index={index} key={member.name} member={member} />
+          ))}
+        </div>
+      </section>
+
+      <PhotoGallery
+        description="Only approved organisational photographs are shown here. No such photographs are currently available."
+        eyebrow="Gallery preview"
+        photos={englishHomePhotos}
+        title="Moments from our community."
+      >
+        <Link className="text-link" href="/gallery">
+          Visit the gallery <span aria-hidden="true">↗</span>
+        </Link>
+      </PhotoGallery>
+
+      <section aria-labelledby="membership-title" className="home-membership-cta">
         <div>
-          <p className="eyebrow">Start a conversation</p>
-          <h2>
-            Every meaningful change
+          <p className="eyebrow">Membership</p>
+          <h2 id="membership-title">Bring your curiosity and your voice.</h2>
+          <p>
+            The organisation currently lists an eligibility age of{" "}
+            {organisation.eligibleAge}. Applications are reviewed by the
+            organisation and do not guarantee membership.
+          </p>
+        </div>
+        <Link className="button button-light" href="/apply">
+          Read the instructions and apply <span aria-hidden="true">↗</span>
+        </Link>
+      </section>
+
+      <section aria-labelledby="home-contact-title" className="home-cta">
+        <div>
+          <p className="eyebrow">Contact</p>
+          <h2 id="home-contact-title">
+            Start a conversation.
             <br />
-            begins with <em>a connection.</em>
+            <em>We would be glad to hear from you.</em>
           </h2>
         </div>
         <Link className="button button-light" href="/contact">
-          Contact us <span aria-hidden="true">↗</span>
+          Get in touch <span aria-hidden="true">↗</span>
         </Link>
       </section>
     </main>

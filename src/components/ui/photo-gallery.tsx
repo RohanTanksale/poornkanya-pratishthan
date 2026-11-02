@@ -1,4 +1,6 @@
-import Image from "next/image";
+import type { ReactNode } from "react";
+import { EmptyState } from "@/components/ui/empty-state";
+import { PhotoGalleryViewer } from "@/components/ui/photo-gallery-viewer";
 import type { PhotoSlot } from "@/types/photo";
 
 type PhotoGalleryProps = {
@@ -7,6 +9,7 @@ type PhotoGalleryProps = {
   description: string;
   photos: PhotoSlot[];
   layout?: "grid" | "single";
+  children?: ReactNode;
 };
 
 export function PhotoGallery({
@@ -15,54 +18,32 @@ export function PhotoGallery({
   description,
   photos,
   layout = "grid",
+  children,
 }: PhotoGalleryProps) {
+  const availablePhotos = photos.filter(
+    (photo): photo is PhotoSlot & { src: string } =>
+      typeof photo.src === "string" && photo.src.length > 0,
+  );
+
   return (
-    <section className="photo-gallery-section section-pad">
+    <section aria-labelledby="photo-gallery-title" className="photo-gallery-section section-pad">
       <div className="photo-gallery-heading">
         <p className="eyebrow">{eyebrow}</p>
-        <h2>{title}</h2>
+        <h2 id="photo-gallery-title">{title}</h2>
         <p>{description}</p>
       </div>
-      <div
-        className={`photo-gallery-grid${layout === "single" ? " photo-gallery-single" : ""}`}
-      >
-        {photos.map((photo, index) => (
-          <figure className="photo-slot" key={`${photo.caption}-${index}`}>
-            <div className="photo-slot-frame">
-              {photo.src ? (
-                <Image
-                  alt={photo.alt}
-                  className="photo-slot-image"
-                  fill
-                  sizes="(max-width: 760px) 100vw, 33vw"
-                  src={photo.src}
-                />
-              ) : (
-                <div
-                  aria-label={`Photo space: ${photo.caption}`}
-                  className="photo-slot-placeholder"
-                  role="img"
-                >
-                  <span aria-hidden="true" className="photo-slot-mark">
-                    <span />
-                    <span />
-                    <span />
-                  </span>
-                  <span className="photo-slot-label">Photo space</span>
-                </div>
-              )}
-            </div>
-            <figcaption>
-              <span>{photo.caption}</span>
-              {!photo.src ? (
-                <span className="photo-slot-note">
-                  An authentic organisational photo can be added here.
-                </span>
-              ) : null}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
+      {availablePhotos.length > 0 ? (
+        <PhotoGalleryViewer layout={layout} photos={availablePhotos} />
+      ) : (
+        <EmptyState
+          description="No approved photographs have been published here. Images will appear when verified, authorised photographs are available."
+          eyebrow="Gallery"
+          headingId="photo-gallery-empty-title"
+          title="No approved photographs yet."
+        >
+          {children}
+        </EmptyState>
+      )}
     </section>
   );
 }

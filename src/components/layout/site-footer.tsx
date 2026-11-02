@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { navigation, footerNote, socialLinks } from "@/data/site";
+import { navigation, footerNote, socialLinks, contactEmail } from "@/data/site";
 import { BrandMark } from "@/components/ui/brand-mark";
 
 export function SiteFooter() {
@@ -16,26 +16,41 @@ export function SiteFooter() {
               <span className="brand-subtitle">Pratishthan</span>
             </span>
           </Link>
+          {contactEmail ? (
+            <a className="footer-email" href={`mailto:${contactEmail}`}>
+              {contactEmail}
+            </a>
+          ) : null}
         </div>
-        <nav aria-label="Footer navigation" className="footer-links">
-          <div className="footer-link-list">
-            {navigation.map((item) => (
-              <Link href={item.href} key={item.href}>{item.label}</Link>
-            ))}
-            <Link href="/contact">Contact</Link>
-            <Link href="/terms">Terms and Conditions</Link>
-            <Link href="/privacy">Privacy Policy</Link>
+        <div className="footer-navigation">
+          <nav aria-label="Explore the website" className="footer-link-group">
+            <h2>Explore</h2>
+            <div className="footer-link-list">
+              {navigation
+                .filter((item) => item.href !== "/apply")
+                .map((item) => (
+                  <Link href={item.href} key={item.href}>{item.label}</Link>
+                ))}
           </div>
-        </nav>
+          </nav>
+          <nav aria-label="Membership and policies" className="footer-link-group">
+            <h2>Membership & policies</h2>
+            <div className="footer-link-list">
+              <Link href="/apply">Apply to join</Link>
+              <Link href="/terms">Terms and Conditions</Link>
+              <Link href="/privacy">Privacy Policy</Link>
+            </div>
+          </nav>
+        </div>
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Poornakanya Pratishthan</span>
         <nav aria-label="Social media" className="footer-social-list">
-          {socialLinks.map((social) => (
+          {socialLinks.filter((social) => social.url).map((social) => (
             <SocialLink key={social.platform} platform={social.platform} url={social.url} />
           ))}
         </nav>
-        <span className="footer-note">{footerNote}</span>
+        {footerNote ? <span className="footer-note">{footerNote}</span> : null}
       </div>
     </footer>
   );
@@ -46,14 +61,10 @@ type SocialPlatform = (typeof socialLinks)[number]["platform"];
 function SocialLink({ platform, url }: { platform: SocialPlatform; url: string }) {
   const icon = <SocialIcon platform={platform} />;
 
-  return url ? (
+  return (
     <a aria-label={platform} className="footer-social" href={url} rel="noreferrer" target="_blank">
       {icon}
     </a>
-  ) : (
-    <span aria-label={platform} className="footer-social" role="img">
-      {icon}
-    </span>
   );
 }
 

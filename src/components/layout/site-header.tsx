@@ -2,17 +2,35 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navigation } from "@/data/site";
 import { BrandMark } from "@/components/ui/brand-mark";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
 
   function closeMenu() {
     setMenuOpen(false);
   }
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+      menuToggleRef.current?.focus();
+    }
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
     <header className="site-header">
@@ -30,6 +48,7 @@ export function SiteHeader() {
           aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
           className={`menu-toggle${menuOpen ? " is-open" : ""}`}
           onClick={() => setMenuOpen((open) => !open)}
+          ref={menuToggleRef}
           type="button"
         >
           <span />
@@ -40,7 +59,7 @@ export function SiteHeader() {
           className={`primary-navigation${menuOpen ? " is-open" : ""}`}
           id="primary-navigation"
         >
-          {navigation.map((item) => {
+          {navigation.filter((item) => item.href !== "/apply").map((item) => {
             const href = item.href;
             const active = pathname === href || pathname.startsWith(`${href}/`);
             return (
@@ -55,8 +74,13 @@ export function SiteHeader() {
               </Link>
             );
           })}
-          <Link className="button button-small header-cta" href="/contact" onClick={closeMenu}>
-            Get in touch <span aria-hidden="true">↗</span>
+          <Link
+            aria-current={pathname === "/apply" ? "page" : undefined}
+            className="button button-small header-cta"
+            href="/apply"
+            onClick={closeMenu}
+          >
+            Apply to join <span aria-hidden="true">↗</span>
           </Link>
         </nav>
       </div>

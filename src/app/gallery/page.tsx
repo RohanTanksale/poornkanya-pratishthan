@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { PageIntro } from "@/components/ui/page-intro";
+import { PhotoGallery } from "@/components/ui/photo-gallery";
+import { englishHomePhotos } from "@/data/photo-galleries";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata(
@@ -17,20 +19,16 @@ export default function GalleryPage() {
         title="Moments from our community."
         tone="sage"
       />
-      <section aria-labelledby="gallery-empty-title" className="gallery-empty-section section-pad">
-        <div className="gallery-empty-state">
-          <p className="eyebrow">Gallery</p>
-          <h2 id="gallery-empty-title">Photographs are not available yet.</h2>
-          <p>
-            No approved organisational photographs have been published here.
-            This page will show images when verified, authorised photographs
-            are available.
-          </p>
+      <PhotoGallery
+        description="Only approved organisational photographs are shown in this gallery."
+        eyebrow="Approved photographs"
+        photos={englishHomePhotos}
+        title="Moments from our community."
+      >
           <Link className="text-link" href="/contact">
             Contact the organisation <span aria-hidden="true">↗</span>
           </Link>
-        </div>
-      </section>
+      </PhotoGallery>
     </main>
   );
 }

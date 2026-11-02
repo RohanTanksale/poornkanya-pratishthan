@@ -1,14 +1,14 @@
+import Link from "next/link";
+import { EmptyState } from "@/components/ui/empty-state";
+import { EventCard } from "@/components/ui/event-card";
 import { PageIntro } from "@/components/ui/page-intro";
-import { PhotoGallery } from "@/components/ui/photo-gallery";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { saraswatiMahotsav } from "@/data/events";
-import { englishEventPhotos } from "@/data/photo-galleries";
-import { upcomingInitiatives } from "@/data/programmes";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata(
   "Events",
-  "Read about Saraswati Mahotsav, the first major celebration of Poornakanya Pratishthan, and explore planned upcoming initiatives.",
+  "Explore confirmed Poornakanya Pratishthan event information and its historical Saraswati Mahotsav celebration.",
   "/events",
 );
 
@@ -16,72 +16,44 @@ export default function EventsPage() {
   return (
     <main id="main-content" lang="en">
       <PageIntro
-        description="A gathering of learning, devotion, culture and shared celebration."
+        description="Confirmed event details are shown separately from undated or planned activities."
         eyebrow="Events & gatherings"
-        title="Saraswati Mahotsav."
+        title="Learning, celebration and community."
         tone="sage"
       />
-      <section className="featured-event section-pad">
-        <div className="featured-event-heading">
-          <p className="eyebrow">The first major celebration</p>
-          <h2>{saraswatiMahotsav.title}</h2>
-          <p>{saraswatiMahotsav.summary}</p>
-          <div className="event-facts">
-            <p><strong>Dates</strong><span>{saraswatiMahotsav.dates} (year not supplied)</span></p>
-            <p><strong>Location</strong><span>{saraswatiMahotsav.location}</span></p>
-            <p><strong>Occasion</strong><span>{saraswatiMahotsav.occasion}</span></p>
-          </div>
-        </div>
-      </section>
-      <section className="event-details-section section-pad">
-        <div>
-          <SectionHeading
-            description="Guests and designations are shown as supplied. No year or attendance figures have been added."
-            eyebrow="Distinguished guests"
-            title="Guidance and shared knowledge."
-          />
-          <ul className="guest-list">
-            {saraswatiMahotsav.guests.map((guest) => (
-              <li key={guest.name}>
-                <strong>{guest.name}</strong>
-                <span>{guest.designation}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <SectionHeading
-            description="A sequence of moments that made the first celebration meaningful."
-            eyebrow="Programme highlights"
-            title="A celebration in five moments."
-          />
-          <ol className="event-activities">
-            {saraswatiMahotsav.activities.map((activity) => (
-              <li key={activity}>{activity}</li>
-            ))}
-          </ol>
-        </div>
-      </section>
-      <PhotoGallery
-        description="Photographs from Saraswati Mahotsav can be added here when authentic event images are available."
-        eyebrow="Saraswati Mahotsav"
-        photos={englishEventPhotos}
-        title="Moments from the celebration."
-      />
-      <section className="future-events section-pad">
+      <section aria-labelledby="upcoming-events-title" className="events-section section-pad">
         <SectionHeading
-          description="These activities are planned initiatives and are not listed as confirmed event dates."
-          eyebrow="Looking ahead"
-          title="Upcoming activities."
+          description="No future dates have been confirmed in the available organisation information."
+          eyebrow="Upcoming events"
+          title="What is coming up."
+          id="upcoming-events-title"
         />
-        <div className="future-event-list">
-          {upcomingInitiatives.map((initiative) => (
-            <article key={initiative.title}>
-              <h3>{initiative.title}</h3>
-              <p>{initiative.description}</p>
-              <span className="content-status">Planned</span>
-            </article>
-          ))}
+        <EmptyState
+          description="There are no confirmed upcoming events to list right now. Planned initiatives are available separately on the Programmes page."
+          headingId="upcoming-events-empty-title"
+          title="No upcoming events announced."
+        >
+          <Link className="text-link" href="/programmes">
+            View planned initiatives <span aria-hidden="true">↗</span>
+          </Link>
+        </EmptyState>
+      </section>
+
+      <section aria-labelledby="past-events-title" className="past-events-section section-pad">
+        <SectionHeading
+          description="This event is identified in the organisation's source material as its first major celebration. Its year was not supplied."
+          eyebrow="Past event"
+          title="A gathering remembered."
+          id="past-events-title"
+        />
+        <div className="event-list">
+          <EventCard
+            date={`${saraswatiMahotsav.dates} · year not supplied`}
+            description={saraswatiMahotsav.summary}
+            href="/events/saraswati-mahotsav"
+            location={saraswatiMahotsav.location}
+            title={saraswatiMahotsav.title}
+          />
         </div>
       </section>
     </main>

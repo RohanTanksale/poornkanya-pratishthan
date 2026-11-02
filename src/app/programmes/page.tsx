@@ -1,5 +1,6 @@
 import { PageIntro } from "@/components/ui/page-intro";
 import { PhotoGallery } from "@/components/ui/photo-gallery";
+import { ProgrammeCard } from "@/components/ui/programme-card";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { englishProgrammePhotos } from "@/data/photo-galleries";
 import { programmeThemes, upcomingInitiatives } from "@/data/programmes";
@@ -7,7 +8,7 @@ import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata(
   "Programmes",
-  "Explore Poornakanya Pratishthan's study camps, cultural programmes, expert guidance and planned initiatives.",
+  "Explore documented activities and clearly labelled planned initiatives from Poornakanya Pratishthan.",
   "/programmes",
 );
 
@@ -20,35 +21,33 @@ export default function ProgrammesPage() {
         title="Learning that reaches beyond the classroom."
         tone="rose"
       />
-      <section className="programmes-intro section-pad">
+      <section aria-labelledby="programme-overview-title" className="programmes-intro section-pad">
         <SectionHeading
-          description="Activities conducted by the organisation include study camps, singing competitions, cultural programmes, discussions, seminars, symposia, expert guidance and interactions with distinguished personalities."
-          eyebrow="Areas of activity"
+          description="The descriptions below reflect information currently available from the organisation. No schedules or additional programme details have been inferred."
+          eyebrow="Documented activities"
           title="A place to learn, express and connect."
+          id="programme-overview-title"
         />
-        <div className="theme-grid">
+        <div className="programme-detail-grid">
           {programmeThemes.map((programme) => (
-            <article className={`theme-card theme-${programme.tone}`} key={programme.number}>
-              <span className="theme-number">{programme.number}</span>
-              <div className="theme-card-copy">
-                <h3>{programme.title}</h3>
-                <p>{programme.description}</p>
-              </div>
-            </article>
+            <ProgrammeCard key={programme.number} programme={programme} />
           ))}
         </div>
       </section>
+
       <PhotoGallery
-        description="Add authentic photographs from study camps, cultural programmes, competitions and guidance sessions."
+        description="Only approved photographs are shown. There are no programme photographs available in the project at this time."
         eyebrow="Programme photographs"
         photos={englishProgrammePhotos}
         title="The work, in pictures."
       />
-      <section className="initiatives-section section-pad">
+
+      <section aria-labelledby="planned-initiatives-title" className="initiatives-section section-pad">
         <SectionHeading
-          description="The following activities are planned initiatives, not claims that these programmes have already taken place."
-          eyebrow="Upcoming activities & initiatives"
+          description="These activities are planned initiatives, not claims that these programmes have already taken place."
+          eyebrow="Planned activities"
           title="Ideas taking shape."
+          id="planned-initiatives-title"
         />
         <div className="initiative-grid">
           {upcomingInitiatives.map((initiative, index) => (
