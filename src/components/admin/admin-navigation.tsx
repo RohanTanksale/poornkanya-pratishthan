@@ -1,8 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type AdminNavigationItem =
-  | { label: string; href: string; available: true }
-  | { label: string; available: false };
+  | {
+      label: string;
+      href: string;
+      availability: "available" | "prototype";
+    }
+  | { label: string; availability: "planned" };
 
 type AdminNavigationGroup = {
   label: string;
@@ -13,42 +20,44 @@ const navigationGroups: AdminNavigationGroup[] = [
   {
     label: "Workspace",
     items: [
-      { label: "Overview", href: "/admin", available: true },
+      { label: "Overview", href: "/admin", availability: "available" },
       {
         label: "Membership Applications",
         href: "/admin#applications",
-        available: true,
+        availability: "available",
       },
       {
         label: "Leadership Management",
         href: "/admin#leadership",
-        available: true,
+        availability: "available",
       },
-      { label: "Admin Access", href: "/admin#admin-access", available: true },
+      { label: "Admin Access", href: "/admin#admin-access", availability: "available" },
     ],
   },
   {
     label: "Content",
     items: [
-      { label: "Website Pages", available: false },
-      { label: "Events", available: false },
-      { label: "Programmes", available: false },
-      { label: "Gallery", available: false },
-      { label: "Announcements", available: false },
+      { label: "Website Pages", availability: "planned" },
+      { label: "Events", href: "/admin/events", availability: "prototype" },
+      { label: "Programmes", availability: "planned" },
+      { label: "Gallery", availability: "planned" },
+      { label: "Announcements", availability: "planned" },
     ],
   },
   {
     label: "Tools",
     items: [
-      { label: "Contact Enquiries", available: false },
-      { label: "Media Library", available: false },
-      { label: "SEO Settings", available: false },
-      { label: "Admin Activity", available: false },
+      { label: "Contact Enquiries", availability: "planned" },
+      { label: "Media Library", availability: "planned" },
+      { label: "SEO Settings", availability: "planned" },
+      { label: "Admin Activity", availability: "planned" },
     ],
   },
 ];
 
 export function AdminNavigation() {
+  const pathname = usePathname();
+
   return (
     <nav aria-label="CMS modules" className="admin-navigation">
       {navigationGroups.map((group) => (
@@ -57,14 +66,25 @@ export function AdminNavigation() {
           <ul>
             {group.items.map((item) => (
               <li key={item.label}>
-                {item.available ? (
+                {item.availability !== "planned" ? (
                   <Link
-                    aria-current={item.href === "/admin" ? "page" : undefined}
+                    aria-current={
+                      pathname === item.href ||
+                      (item.href === "/admin" && pathname === "/admin")
+                        ? "page"
+                        : undefined
+                    }
                     href={item.href}
                   >
                     <span>{item.label}</span>
-                    <span className="admin-module-status is-available">
-                      Available
+                    <span
+                      className={`admin-module-status ${
+                        item.availability === "available"
+                          ? "is-available"
+                          : "is-prototype"
+                      }`}
+                    >
+                      {item.availability === "available" ? "Available" : "Prototype"}
                     </span>
                   </Link>
                 ) : (

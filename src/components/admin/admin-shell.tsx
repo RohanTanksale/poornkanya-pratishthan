@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { signOutAdmin } from "@/app/admin/actions";
 import { AdminNavigation } from "@/components/admin/admin-navigation";
 
@@ -9,6 +12,9 @@ export function AdminShell({
   adminEmail: string;
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const currentPage = pathname === "/admin/events" ? "Events prototype" : "Overview";
+
   return (
     <div className="admin-workspace">
       <header className="admin-shell-header">
@@ -45,7 +51,7 @@ export function AdminShell({
                 <li>
                   <Link href="/admin">Admin</Link>
                 </li>
-                <li aria-current="page">Overview</li>
+                <li aria-current="page">{currentPage}</li>
               </ol>
             </nav>
           </div>
