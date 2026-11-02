@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { defaultMetadata } from "@/lib/metadata";
 import "./globals.css";
 
@@ -18,10 +16,7 @@ export default function RootLayout({
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
-        <SiteHeader />
-        <ScrollReveal />
-        {children}
-        <SiteFooter />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

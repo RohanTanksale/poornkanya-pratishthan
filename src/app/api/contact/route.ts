@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { readJsonBody } from "@/lib/request-json";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const allowedSubjects = new Set([
@@ -26,21 +27,19 @@ function isText(value: unknown): value is string {
 }
 
 export async function POST(request: Request) {
-  const contentLength = Number(request.headers.get("content-length"));
-  if (Number.isFinite(contentLength) && contentLength > 12_000) {
+  const body = await readJsonBody(request, 12_000);
+  if (!body.ok && body.reason === "too_large") {
     return NextResponse.json(
       { message: "The submitted form is too large." },
       { status: 413 },
     );
   }
 
-  let payload: unknown;
-  try {
-    payload = await request.json();
-  } catch {
+  if (!body.ok) {
     return NextResponse.json({ message: "Please submit a valid form." }, { status: 400 });
   }
 
+  const payload = body.value;
   if (!isRecord(payload)) {
     return NextResponse.json({ message: "Please submit a valid form." }, { status: 400 });
   }

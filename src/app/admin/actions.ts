@@ -10,6 +10,11 @@ import {
   isAuthorizedAdmin,
   isSuperAdminEmail,
 } from "@/lib/supabase/server";
+import {
+  getMembershipApplicationsPage,
+  membershipApplicationsPageSize,
+  type MembershipApplicationFilters,
+} from "@/lib/admin-applications";
 
 export type AdminActionState = {
   error?: string;
@@ -158,6 +163,48 @@ async function getAuthorizedAdminEmail() {
   }
   if (!(await isAuthorizedAdmin(data.user?.email))) return null;
   return data.user?.email?.trim().toLowerCase() ?? null;
+}
+
+export async function searchMembershipApplications(
+  filters: MembershipApplicationFilters,
+) {
+  const reviewer = await getAuthorizedAdminEmail();
+  if (!reviewer) {
+    return { error: "Your session is not authorized to view applications." };
+  }
+
+  if (
+    typeof filters !== "object" ||
+    filters === null ||
+    typeof filters.query !== "string" ||
+    filters.query.length > 80 ||
+    !Number.isInteger(filters.page) ||
+    filters.page < 1 ||
+    filters.page > 100_000
+  ) {
+    return { error: "Enter a valid application search." };
+  }
+
+  const status = applicationStatuses.find(
+    (allowedStatus) => allowedStatus === filters.status,
+  );
+  if (filters.status !== "" && !status) {
+    return { error: "Choose a valid application status." };
+  }
+
+  const result = await getMembershipApplicationsPage({
+    page: filters.page,
+    query: filters.query.trim(),
+    status: status ?? "",
+  });
+  if (!result.ok) {
+    return { error: result.message };
+  }
+
+  return {
+    ...result.value,
+    pageSize: membershipApplicationsPageSize,
+  };
 }
 
 export async function grantAdminAccess(

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServiceClient } from "@/lib/supabase/server";
+import { readJsonBody } from "@/lib/request-json";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phonePattern = /^[+()\d.\-\s]+$/;
@@ -28,24 +29,22 @@ function text(value: unknown) {
 }
 
 export async function POST(request: Request) {
-  const contentLength = Number(request.headers.get("content-length"));
-  if (Number.isFinite(contentLength) && contentLength > 8_000) {
+  const body = await readJsonBody(request, 8_000);
+  if (!body.ok && body.reason === "too_large") {
     return NextResponse.json(
       { message: "The submitted form is too large." },
       { status: 413 },
     );
   }
 
-  let payload: unknown;
-  try {
-    payload = await request.json();
-  } catch {
+  if (!body.ok) {
     return NextResponse.json(
       { message: "Please submit a valid application." },
       { status: 400 },
     );
   }
 
+  const payload = body.value;
   if (!isRecord(payload)) {
     return NextResponse.json(
       { message: "Please submit a valid application." },

@@ -6,6 +6,7 @@ const paths = [
   "/about",
   "/programmes",
   "/events",
+  "/gallery",
   "/leadership",
   "/branches",
   "/vision",

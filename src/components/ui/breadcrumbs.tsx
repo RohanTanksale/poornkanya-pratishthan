@@ -7,6 +7,7 @@ const pageLabels: Record<string, string> = {
   about: "About",
   programmes: "Programmes",
   events: "Events",
+  gallery: "Gallery",
   leadership: "Leadership",
   branches: "Branches",
   vision: "Vision",

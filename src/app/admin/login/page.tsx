@@ -9,7 +9,7 @@ export default async function AdminLoginPage() {
   const configured = hasAdminConfig();
 
   return (
-    <main className="admin-page section-pad">
+    <main className="admin-page section-pad" id="main-content">
       <section className="admin-panel admin-login-panel">
         <p className="eyebrow">Poornakanya Pratishthan</p>
         <h1>Admin sign in</h1>
