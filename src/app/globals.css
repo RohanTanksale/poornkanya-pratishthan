@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --plum: #65243c;
   --plum-dark: #351827;
   --plum-soft: #835267;
@@ -3200,12 +3200,16 @@ a.footer-social:hover {
   text-align: center;
 }
 
-.historical-figure-grid strong {
-  color: var(--plum);
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 5rem);
-  font-weight: 400;
-  line-height: 1;
+.historical-figure-grid article strong {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: clamp(5rem, 10vw, 8rem);
+  font-weight: 900;
+  color: #65243c;
+  line-height: 0.95;
+  letter-spacing: -5px;
+  margin-bottom: 16px;
+  text-shadow: 0 3px 0 rgba(101, 36, 60, 0.08);
 }
 
 .historical-figure-grid span {
@@ -7220,53 +7224,47 @@ h3 {
 
 
 
-/* Historical figures – enhanced statistics cards */
+
+
+/* FINAL HISTORICAL STATISTICS DESIGN */
 .historical-figure-grid article {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 290px;
+  padding: 36px 24px;
+  gap: 12px;
   text-align: center;
-  gap: 18px;
-  min-height: 260px;
-  padding: 40px 24px;
-  border: 1px solid rgba(185, 154, 97, 0.4);
+  border: 1px solid #ead4da;
+  border-top: 5px solid #f97316;
   border-radius: 18px;
-  background: linear-gradient(145deg, #fffdfa, #fff1df);
-  box-shadow: 0 12px 32px rgba(75, 35, 30, 0.07);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(145deg, #fffdfa, #fff4e8);
+  box-shadow: 0 12px 35px rgba(53, 24, 39, 0.09);
+  transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .historical-figure-grid article:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(75, 35, 30, 0.12);
-}
-
-.historical-figure-grid article strong {
-  display: block;
-  color: #65243c;
-  font-family: Georgia, serif;
-  font-size: clamp(3.5rem, 6vw, 5.5rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -2px;
+  box-shadow: 0 18px 42px rgba(53, 24, 39, 0.15);
 }
 
 .historical-figure-grid article span {
-  max-width: 300px;
+  max-width: 280px;
   color: #706a67;
   font-size: 1rem;
-  line-height: 1.7;
+  font-weight: 500;
+  line-height: 1.6;
 }
 
 @media (max-width: 600px) {
   .historical-figure-grid article {
-    min-height: 200px;
-    padding: 28px 18px;
+    min-height: 220px;
   }
 
   .historical-figure-grid article strong {
-    font-size: 3.5rem;
+    font-size: 5rem;
+    letter-spacing: -3px;
   }
 }
 
@@ -7275,22 +7273,61 @@ h3 {
     transition: none;
   }
 }
-
-/* Large bold historical statistics */
-.historical-figure-grid article strong {
-  display: block !important;
-  font-family: Georgia, serif !important;
-  font-size: clamp(4.5rem, 8vw, 7rem) !important;
-  font-weight: 900 !important;
-  color: #65243c !important;
-  line-height: 1 !important;
-  letter-spacing: -3px !important;
-  margin-bottom: 12px;
+/* Restore original Historical Figures design */
+.historical-figures {
+  background: var(--ivory) !important;
 }
 
-@media (max-width: 600px) {
-  .historical-figure-grid article strong {
-    font-size: 4.5rem !important;
+.historical-figures > .eyebrow {
+  text-align: center !important;
+}
+
+.historical-figure-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1.5rem !important;
+  max-width: 850px !important;
+  margin: 2rem auto !important;
+}
+
+.historical-figure-grid article {
+  display: grid !important;
+  gap: .5rem !important;
+  justify-items: center !important;
+  padding: 2rem !important;
+  min-height: 0 !important;
+  border: 1px solid var(--line) !important;
+  border-top: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  background: var(--paper) !important;
+  box-shadow: none !important;
+  text-align: center !important;
+  transform: none !important;
+}
+
+.historical-figure-grid article:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.historical-figure-grid strong {
+  color: var(--plum) !important;
+  font-family: var(--font-display) !important;
+  font-size: clamp(3rem, 7vw, 5rem) !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  letter-spacing: normal !important;
+  margin: 0 !important;
+}
+
+.historical-figure-grid span {
+  max-width: 250px !important;
+  color: var(--muted) !important;
+  font-size: .86rem !important;
+}
+
+@media (max-width: 640px) {
+  .historical-figure-grid {
+    grid-template-columns: 1fr !important;
   }
 }
-
