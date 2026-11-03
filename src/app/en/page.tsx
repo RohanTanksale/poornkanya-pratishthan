@@ -315,23 +315,6 @@ export default async function EnglishHome() {
           Read the instructions and apply <span aria-hidden="true">↗</span>
         </Link>
       </section>
-
-      {/* CONTACT CTA */}
-      <section aria-labelledby="home-contact-title" className="home-cta">
-        <div>
-          <p className="eyebrow">Contact</p>
-
-          <h2 id="home-contact-title">
-            Start a conversation.
-            <br />
-            <em>We would be glad to hear from you.</em>
-          </h2>
-        </div>
-
-        <Link className="button button-light" href="/contact">
-          Get in touch <span aria-hidden="true">↗</span>
-        </Link>
-      </section>
 </main>
   );
 }
