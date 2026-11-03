@@ -23,7 +23,7 @@ export default function ContactPage() {
       <PageIntro
         description="Questions, ideas, partnerships or simply a helloâ€”we'd be glad to hear from you."
         eyebrow="Contact"
-        title="Let us start a conversation."
+        title="Let's start a conversation."
         tone="sage"
       />
       <section className="contact-section section-pad">
