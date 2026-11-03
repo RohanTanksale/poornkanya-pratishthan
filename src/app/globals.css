@@ -6502,3 +6502,719 @@ main article:nth-child(4),
     transform: none !important;
   }
 }
+
+/* ==========================================
+   POORNAKANYA - INTERACTIVE BRANCH DIRECTORY
+   ========================================== */
+
+.branches-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(5rem, 11vw, 9rem) 7%;
+  background:
+    radial-gradient(circle at 85% 20%, rgb(255 197 105 / 20%), transparent 35%),
+    linear-gradient(125deg, #572b36 0%, #783b3c 55%, #9b593e 100%);
+  color: #fffaf2;
+}
+
+.branches-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 850px;
+  animation: branch-hero-enter 900ms ease both;
+}
+
+.branches-hero-eyebrow {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: #f7d69d;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.branches-hero h1 {
+  max-width: 800px;
+  margin: 0 0 1.5rem;
+  color: #fffaf2;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6.5vw, 5.8rem);
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+}
+
+.branches-hero p {
+  max-width: 580px;
+  margin-bottom: 2rem;
+  color: rgb(255 250 242 / 82%);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.8;
+}
+
+.branches-hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.3rem;
+  border: 1px solid rgb(255 250 242 / 45%);
+  border-radius: 3px;
+  color: #fffaf2;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 250ms ease, color 250ms ease, transform 250ms ease;
+}
+
+.branches-hero-link:hover {
+  transform: translateY(-3px);
+  background: #fffaf2;
+  color: #713b3d;
+}
+
+.branches-hero-decoration {
+  position: absolute;
+  top: 5%;
+  right: 8%;
+  color: rgb(255 221 171 / 13%);
+  font-size: clamp(12rem, 30vw, 28rem);
+  line-height: 1;
+  pointer-events: none;
+}
+
+@keyframes branch-hero-enter {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.branch-directory {
+  padding-top: clamp(4rem, 8vw, 7rem);
+  padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+.branch-directory-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.branch-directory-heading h2 {
+  margin: 0.5rem 0;
+  color: var(--plum);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.3rem);
+}
+
+.branch-directory-heading p {
+  max-width: 600px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.branch-count {
+  flex-shrink: 0;
+  padding: 0.65rem 1rem;
+  border: 1px solid rgb(160 105 62 / 25%);
+  border-radius: 30px;
+  color: var(--plum);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.branch-directory-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.branch-search {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: min(100%, 440px);
+  min-height: 52px;
+  padding: 0 1rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+  color: var(--plum);
+}
+
+.branch-search > span {
+  font-size: 1.5rem;
+}
+
+.branch-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--plum);
+  font: inherit;
+}
+
+.branch-search:focus-within {
+  outline: 2px solid rgb(183 119 60 / 40%);
+  outline-offset: 2px;
+}
+
+.branch-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.branch-filters button {
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: transparent;
+  color: var(--plum);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  transition: all 250ms ease;
+}
+
+.branch-filters button:hover,
+.branch-filters button.active {
+  border-color: #8d4b3e;
+  background: #783b3c;
+  color: #fffaf2;
+}
+
+.branch-directory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.3rem;
+}
+
+.branch-directory-card {
+  --card-tilt: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0);
+  position: relative;
+  display: flex;
+  min-height: 245px;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 1.7rem;
+  border: 1px solid rgb(129 83 59 / 17%);
+  border-radius: 5px;
+  background:
+    radial-gradient(circle at 100% 0%, rgb(230 187 128 / 18%), transparent 45%),
+    var(--white);
+  box-shadow: 0 10px 30px rgb(53 24 39 / 5%);
+  transform: var(--card-tilt);
+  transform-style: preserve-3d;
+  animation: branch-card-enter 700ms cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  animation-delay: calc(var(--card-index, 0) * 90ms);
+  transition: transform 180ms ease, box-shadow 350ms ease, border-color 300ms ease;
+  will-change: transform;
+}
+
+.branch-directory-card::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #dca85e, #9a5141);
+  content: "";
+}
+
+.branch-directory-card:hover {
+  border-color: rgb(183 119 60 / 45%);
+  box-shadow: 0 22px 45px rgb(92 53 39 / 13%);
+}
+
+@keyframes branch-card-enter {
+  from { opacity: 0; transform: perspective(1000px) translateY(28px) scale(0.96); }
+  to { opacity: 1; transform: var(--card-tilt); }
+}
+
+.branch-card-topline,
+.branch-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.branch-card-symbol {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgb(193 143 83 / 13%);
+  color: #a66a3d;
+  font-size: 1.3rem;
+}
+
+.branch-card-label {
+  color: #a16d47;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.branch-card-content {
+  margin: 1.5rem 0;
+}
+
+.branch-card-content h3 {
+  margin-bottom: 0.6rem;
+  color: var(--plum);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+}
+
+.branch-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.branch-location span {
+  color: #b77b42;
+  font-size: 1.2rem;
+}
+
+.branch-card-bottom {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.branch-card-bottom span:last-child {
+  color: #a66a3d;
+  font-size: 1.2rem;
+}
+
+.branch-empty-state {
+  padding: 4rem 1rem;
+  border: 1px dashed var(--line);
+  text-align: center;
+}
+
+.branch-empty-state > span {
+  color: #a66a3d;
+  font-size: 2rem;
+}
+
+.branch-empty-state h3 {
+  margin: 0.8rem 0;
+  color: var(--plum);
+}
+
+.branch-empty-state p {
+  color: var(--muted);
+}
+
+.branch-empty-state button {
+  margin-top: 1rem;
+  padding: 0.7rem 1.2rem;
+  border: 0;
+  border-radius: 3px;
+  background: #783b3c;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .branch-directory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .branches-hero {
+    padding: 5rem 6%;
+  }
+
+  .branches-hero-decoration {
+    top: 30%;
+    right: -10%;
+  }
+
+  .branch-directory-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .branch-directory-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .branch-search {
+    width: 100%;
+  }
+
+  .branch-directory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .branch-directory-card {
+    min-height: 215px;
+  }
+}
+
+@media (hover: none) {
+  .branch-directory-card {
+    transform: none;
+    will-change: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .branches-hero-inner,
+  .branch-directory-card {
+    animation: none;
+  }
+
+  .branch-directory-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .branches-hero-link {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   POORNAKANYA PRATISHTHAN — UNIFIED SITE-WIDE DESIGN
+   Reference: Saffron, warm ivory, gold and burgundy
+   ========================================================= */
+
+:root {
+  --plum: #783b3c;
+  --plum-dark: #4a2529;
+  --plum-soft: #98585a;
+  --rose: #d99b86;
+  --rose-light: #f1dcd1;
+  --sage: #7d876e;
+  --sage-dark: #58644d;
+  --ivory: #fffaf2;
+  --cream: #fff3e3;
+  --paper: #fffaf2;
+  --ink: #30272a;
+  --muted: #71645e;
+  --line: #e8d9c8;
+  --white: #fffdf9;
+  --gold: #d5a447;
+
+  --shadow-soft: 0 18px 55px rgb(74 37 41 / 9%);
+  --ease: 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Overall page appearance */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 5% 8%, rgb(249 115 22 / 5%), transparent 30rem),
+    var(--paper);
+}
+
+::selection {
+  color: #fff;
+  background: var(--plum);
+}
+
+/* Headings and typography */
+
+h1,
+h2,
+h3 {
+  color: var(--plum-dark);
+  letter-spacing: -0.025em;
+}
+
+.eyebrow {
+  color: #a65b27;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+/* Premium navigation */
+
+.premium-header {
+  background: rgb(255 250 242 / 94%);
+  border-bottom: 1px solid rgb(120 59 60 / 12%);
+  box-shadow: 0 5px 24px rgb(74 37 41 / 4%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.premium-header.is-scrolled {
+  background: rgb(255 250 242 / 97%);
+  box-shadow: 0 8px 30px rgb(74 37 41 / 9%);
+}
+
+.premium-brand-mark {
+  background: linear-gradient(135deg, #f97316, #d5a447);
+  color: #fffaf2;
+  box-shadow: 0 5px 16px rgb(249 115 22 / 20%);
+}
+
+.premium-brand-name {
+  color: var(--plum-dark);
+}
+
+.premium-brand-name span {
+  color: #a65b27;
+}
+
+.premium-nav-link {
+  color: #594641;
+  transition: color var(--ease);
+}
+
+.premium-nav-link:hover,
+.premium-nav-link.active {
+  color: #c45d1b;
+}
+
+.premium-nav-link::after {
+  background: linear-gradient(90deg, #f97316, #eab308);
+}
+
+.premium-join-button {
+  border-color: #c45d1b;
+  border-radius: 999px;
+  color: #fffaf2;
+  background: linear-gradient(135deg, #c45d1b, #e18a2c);
+  box-shadow: 0 6px 18px rgb(196 93 27 / 16%);
+}
+
+.premium-join-button:hover {
+  border-color: var(--plum-dark);
+  background: var(--plum-dark);
+}
+
+.premium-menu-toggle {
+  border-color: var(--line);
+  border-radius: 12px;
+}
+
+.premium-mobile-nav {
+  background: var(--ivory);
+  border-top: 1px solid var(--line);
+}
+
+.premium-mobile-link {
+  color: var(--plum-dark);
+  border-bottom-color: var(--line);
+}
+
+.premium-mobile-link:hover,
+.premium-mobile-link.active {
+  color: #c45d1b;
+}
+
+/* Buttons */
+
+.button {
+  border-radius: 999px;
+  transition:
+    transform var(--ease),
+    background var(--ease),
+    border-color var(--ease),
+    box-shadow var(--ease);
+}
+
+.button:not(.button-outline):not(.button-light):not(.button-secondary) {
+  border-color: #c45d1b;
+  background: linear-gradient(135deg, #c45d1b, #e18a2c);
+  box-shadow: 0 7px 20px rgb(196 93 27 / 15%);
+}
+
+.button:not(.button-outline):not(.button-light):not(.button-secondary):hover:not(:disabled) {
+  border-color: var(--plum-dark);
+  background: var(--plum-dark);
+  box-shadow: 0 10px 25px rgb(74 37 41 / 18%);
+  transform: translateY(-3px);
+}
+
+.button-outline,
+.button-secondary {
+  border-color: rgb(120 59 60 / 35%);
+  color: var(--plum);
+}
+
+.button-outline:hover:not(:disabled),
+.button-secondary:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--plum-dark);
+  background: var(--gold);
+}
+
+/* Page introduction sections */
+
+.page-intro {
+  background:
+    radial-gradient(circle at 85% 45%, rgb(249 115 22 / 12%), transparent 22rem),
+    linear-gradient(120deg, #fff0df, #fffaf2 72%);
+}
+
+.page-intro::before {
+  border-color: rgb(213 164 71 / 22%);
+}
+
+.page-intro h1 {
+  color: var(--plum-dark);
+}
+
+.page-intro-description {
+  color: #65534c;
+}
+
+/* Shared section headings */
+
+.section-heading h2 {
+  color: var(--plum-dark);
+}
+
+.section-heading .eyebrow {
+  color: #b65e27;
+}
+
+.section-description {
+  color: var(--muted);
+}
+
+/* Cards and content panels */
+
+.branch-card,
+.programme-card,
+.event-card,
+.roadmap-item,
+.vision-preview-grid article,
+.theme-grid article,
+.home-beliefs-grid article,
+.contact-form-panel {
+  border: 1px solid rgb(120 59 60 / 12%);
+  border-radius: 18px;
+  background: rgb(255 253 249 / 95%);
+  box-shadow: 0 12px 35px rgb(74 37 41 / 5%);
+  transition:
+    transform var(--ease),
+    box-shadow var(--ease),
+    border-color var(--ease);
+}
+
+.branch-card:hover,
+.programme-card:hover,
+.event-card:hover,
+.roadmap-item:hover,
+.vision-preview-grid article:hover,
+.theme-grid article:hover,
+.home-beliefs-grid article:hover {
+  border-color: rgb(213 164 71 / 65%);
+  box-shadow: 0 20px 45px rgb(74 37 41 / 10%);
+  transform: translateY(-5px);
+}
+
+.branch-card h2,
+.branch-card h3,
+.programme-card h2,
+.programme-card h3,
+.event-card h2,
+.event-card h3 {
+  color: var(--plum-dark);
+}
+
+/* Forms */
+
+.contact-form-panel {
+  background:
+    radial-gradient(circle at 100% 0, rgb(249 115 22 / 8%), transparent 18rem),
+    var(--ivory);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  border-color: var(--line);
+  border-radius: 10px;
+  background: #fffdf9;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: #d97732;
+  box-shadow: 0 0 0 3px rgb(249 115 22 / 12%);
+  outline: none;
+}
+
+/* Footer */
+
+.site-footer {
+  color: #fff7ed;
+  background:
+    radial-gradient(circle at 90% 10%, rgb(213 164 71 / 12%), transparent 20rem),
+    linear-gradient(135deg, #4a2529, #652f35);
+}
+
+.site-footer .brand-name,
+.site-footer .brand-subtitle {
+  color: #fff7ed;
+}
+
+.footer-link-group h2 {
+  color: #eabf72;
+}
+
+.site-footer a:hover {
+  color: #f5bd68;
+}
+
+.footer-social {
+  border-color: rgb(255 250 242 / 25%);
+  border-radius: 50%;
+  transition: background var(--ease), transform var(--ease);
+}
+
+.footer-social:hover {
+  background: #b65e27;
+  transform: translateY(-3px);
+}
+
+/* Keyboard accessibility */
+
+:focus-visible {
+  outline: 3px solid #e18a2c;
+  outline-offset: 4px;
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

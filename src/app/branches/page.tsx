@@ -1,29 +1,49 @@
-import { PageIntro } from "@/components/ui/page-intro";
+﻿import { BranchDirectory } from "@/components/ui/branch-directory";
+import { HistoricalFigures } from "@/components/ui/historical-figures";
 import { PhotoGallery } from "@/components/ui/photo-gallery";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { historicalRegions, initialPhaseFigures } from "@/data/branches";
+import {
+  branches,
+  historicalRegions,
+  initialPhaseFigures,
+} from "@/data/branches";
 import { englishBranchPhotos } from "@/data/photo-galleries";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata = createPageMetadata(
   "Branches",
-  "Learn about the historical geographical presence of Poornakanya Pratishthan and its evolving branch network.",
+  "Discover the branches of Poornakanya Pratishthan and our growing community network.",
   "/branches",
 );
 
 export default function BranchesPage() {
   return (
     <main id="main-content" lang="en">
-      <PageIntro
-        description="A growing circle of connection across regions and communities."
-        eyebrow="Our reach"
-        title="A network shaped by shared purpose."
-        tone="rose"
-      />
+      <section className="branches-hero">
+        <div className="branches-hero-inner">
+          <span className="branches-hero-eyebrow">
+            POORNAKANYA PRATISHTHAN · OUR NETWORK
+          </span>
+          <h1>Connecting Communities, Spreading Values.</h1>
+          <p>
+            A shared vision that brings people together across locations,
+            communities and generations.
+          </p>
+          <a href="#branch-directory" className="branches-hero-link">
+            Explore our branches <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+        <div className="branches-hero-decoration" aria-hidden="true">✦</div>
+      </section>
+
+      <div id="branch-directory">
+        <BranchDirectory branches={branches} />
+      </div>
+
       <section className="branches-history section-pad">
         <SectionHeading
           description="The organisation's geographical presence has included the following regions."
-          eyebrow="Geographical expansion"
+          eyebrow="Our journey"
           title="Across India and beyond."
         />
         <div className="region-list">
@@ -32,26 +52,15 @@ export default function BranchesPage() {
           ))}
         </div>
       </section>
-      <section className="historical-figures section-pad">
-        <p className="eyebrow">{initialPhaseFigures.label}</p>
-        <div className="historical-figure-grid">
-          <article>
-            <strong>{initialPhaseFigures.branches}</strong>
-            <span>Branches established during the initial phase</span>
-          </article>
-          <article>
-            <strong>{initialPhaseFigures.members}</strong>
-            <span>Members associated during the initial phase</span>
-          </article>
-        </div>
-        <p className="historical-stat-note">
-          These are historical figures, not current statistics. Updated branch
-          and membership information is being collected. Current branch
-          addresses and contacts will be listed once verified.
-        </p>
-      </section>
+
+      <HistoricalFigures
+        branches={initialPhaseFigures.branches}
+        members={initialPhaseFigures.members}
+        label={initialPhaseFigures.label}
+      />
+
       <PhotoGallery
-        description="Add verified photographs of branch activities and community gatherings when available."
+        description="Explore photographs of branch activities and community gatherings."
         eyebrow="Across the network"
         photos={englishBranchPhotos}
         title="Branches and communities."
@@ -59,3 +68,5 @@ export default function BranchesPage() {
     </main>
   );
 }
+
+

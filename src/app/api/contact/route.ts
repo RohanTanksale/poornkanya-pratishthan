@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { readJsonBody } from "@/lib/request-json";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phonePattern = /^[6-9]\d{9}$/;
+
 const allowedSubjects = new Set([
   "General enquiry",
   "Programme information",
@@ -13,6 +15,7 @@ const allowedSubjects = new Set([
 type ContactPayload = {
   name?: unknown;
   email?: unknown;
+  phone?: unknown;
   subject?: unknown;
   message?: unknown;
   website?: unknown;
@@ -28,6 +31,7 @@ function isText(value: unknown): value is string {
 
 export async function POST(request: Request) {
   const body = await readJsonBody(request, 12_000);
+
   if (!body.ok && body.reason === "too_large") {
     return NextResponse.json(
       { message: "The submitted form is too large." },
@@ -35,17 +39,17 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!body.ok) {
-    return NextResponse.json({ message: "Please submit a valid form." }, { status: 400 });
+  if (!body.ok || !isRecord(body.value)) {
+    return NextResponse.json(
+      { message: "Please submit a valid form." },
+      { status: 400 },
+    );
   }
 
   const payload = body.value;
-  if (!isRecord(payload)) {
-    return NextResponse.json({ message: "Please submit a valid form." }, { status: 400 });
-  }
-
   const name = isText(payload.name) ? payload.name.trim() : "";
   const email = isText(payload.email) ? payload.email.trim() : "";
+  const phone = isText(payload.phone) ? payload.phone.trim() : "";
   const subject = isText(payload.subject) ? payload.subject.trim() : "";
   const message = isText(payload.message) ? payload.message.trim() : "";
   const website = isText(payload.website) ? payload.website.trim() : "";
@@ -62,12 +66,13 @@ export async function POST(request: Request) {
     name.length > 100 ||
     !emailPattern.test(email) ||
     email.length > 254 ||
+    !phonePattern.test(phone) ||
     !allowedSubjects.has(subject) ||
     !message ||
     message.length > 5000
   ) {
     return NextResponse.json(
-      { message: "Please check your details and try again." },
+      { message: "Please check your name, email, mobile number and message." },
       { status: 400 },
     );
   }
@@ -75,6 +80,7 @@ export async function POST(request: Request) {
   const apiKey = process.env.RESEND_API_KEY;
   const recipient = process.env.CONTACT_EMAIL;
   const sender = process.env.RESEND_FROM_EMAIL;
+
   if (!apiKey || !recipient || !sender) {
     return NextResponse.json(
       { message: "Online message delivery is not configured yet. Please try again later." },
@@ -83,6 +89,7 @@ export async function POST(request: Request) {
   }
 
   let response: Response;
+
   try {
     response = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -96,7 +103,15 @@ export async function POST(request: Request) {
         to: [recipient],
         reply_to: email,
         subject: `Website enquiry: ${subject}`,
-        text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+        text: [
+          `Name: ${name}`,
+          `Email: ${email}`,
+          `Mobile: ${phone}`,
+          `Topic: ${subject}`,
+          "",
+          "Message:",
+          message,
+        ].join("\n"),
       }),
     });
   } catch {
@@ -113,5 +128,7 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json({ message: "Thank you. Your message has been sent." });
+  return NextResponse.json({
+    message: "Thank you! Your enquiry has been sent successfully. Our team will get back to you.",
+  });
 }

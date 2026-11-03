@@ -1,13 +1,19 @@
-export type Branch = {
+﻿export type Branch = {
   name: string;
   location: string;
-  address: string;
+  address?: string;
   email?: string;
   phone?: string;
   mapUrl?: string;
 };
 
-export const branches: Branch[] = [];
+export const branches: Branch[] = [
+  { name: "Parner Branch", location: "Parner, Maharashtra" },
+  { name: "Pune Branch", location: "Pune, Maharashtra" },
+  { name: "Chhatrapati Sambhajinagar Branch", location: "Chhatrapati Sambhajinagar, Maharashtra" },
+  { name: "Mauritius Branch", location: "Mauritius" },
+  { name: "Nashik Branch", location: "Nashik, Maharashtra" },
+];
 
 export const historicalRegions = [
   "Maharashtra",

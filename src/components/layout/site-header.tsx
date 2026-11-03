@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -12,6 +12,7 @@ const navigation = [
   { label: "Events", href: "/events" },
   { label: "Leadership", href: "/leadership" },
   { label: "Branches", href: "/branches" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function SiteHeader() {
@@ -89,7 +90,7 @@ export function SiteHeader() {
             href="/apply"
             className="premium-join-button"
           >
-            Join Us <span aria-hidden="true">↗</span>
+            Join Us <span aria-hidden="true">â†—</span>
           </Link>
 
           <button
@@ -122,7 +123,7 @@ export function SiteHeader() {
               onClick={() => setMenuOpen(false)}
             >
               {item.label}
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">â†—</span>
             </Link>
           ))}
 
@@ -132,10 +133,11 @@ export function SiteHeader() {
             className="premium-mobile-join"
             onClick={() => setMenuOpen(false)}
           >
-            Become a part of our journey ↗
+            Become a part of our journey â†—
           </Link>
         </nav>
       </div>
     </header>
   );
 }
+
