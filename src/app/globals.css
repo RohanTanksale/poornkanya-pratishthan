@@ -7275,3 +7275,22 @@ h3 {
     transition: none;
   }
 }
+
+/* Large bold historical statistics */
+.historical-figure-grid article strong {
+  display: block !important;
+  font-family: Georgia, serif !important;
+  font-size: clamp(4.5rem, 8vw, 7rem) !important;
+  font-weight: 900 !important;
+  color: #65243c !important;
+  line-height: 1 !important;
+  letter-spacing: -3px !important;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 600px) {
+  .historical-figure-grid article strong {
+    font-size: 4.5rem !important;
+  }
+}
+
