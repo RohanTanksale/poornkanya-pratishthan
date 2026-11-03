@@ -1,4 +1,4 @@
-﻿import { BranchDirectory } from "@/components/ui/branch-directory";
+import { BranchDirectory } from "@/components/ui/branch-directory";
 import { HistoricalFigures } from "@/components/ui/historical-figures";
 import { PhotoGallery } from "@/components/ui/photo-gallery";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -53,11 +53,7 @@ export default function BranchesPage() {
         </div>
       </section>
 
-      <HistoricalFigures
-        branches={initialPhaseFigures.branches}
-        members={initialPhaseFigures.members}
-        label={initialPhaseFigures.label}
-      />
+      <HistoricalFigures />
 
       <PhotoGallery
         description="Explore photographs of branch activities and community gatherings."

@@ -1,80 +1,83 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 
-type Props = {
-  branches: number;
-  members: number;
-  label: string;
-};
-
-function CountUp({ value, label }: { value: number; label: string }) {
+function AnimatedNumber({ target }: { target: number }) {
   const [count, setCount] = useState(0);
-  const [visible, setVisible] = useState(false);
-  const ref = useRef<HTMLElement>(null);
+  const [started, setStarted] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setVisible(true);
-        observer.disconnect();
-      }
-    }, { threshold: 0.35 });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
 
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    if (!visible) return;
+    if (!started) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setCount(value);
+      setCount(target);
       return;
     }
 
-    let frame = 0;
-    let start: number | null = null;
     const duration = 1800;
+    let frame = 0;
+    let startTime: number | null = null;
 
-    const animate = (time: number) => {
-      if (start === null) start = time;
-      const progress = Math.min((time - start) / duration, 1);
+    const animate = (timestamp: number) => {
+      if (startTime === null) startTime = timestamp;
+
+      const progress = Math.min((timestamp - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 4);
 
-      setCount(Math.round(eased * value));
+      setCount(Math.floor(eased * target));
 
-      if (progress < 1) frame = requestAnimationFrame(animate);
+      if (progress < 1) {
+        frame = requestAnimationFrame(animate);
+      } else {
+        setCount(target);
+      }
     };
 
     frame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frame);
-  }, [visible, value]);
+  }, [started, target]);
 
-  return (
-    <strong ref={ref} aria-label={`${value} ${label}`}>
-      {count.toLocaleString("en-IN")}+
-    </strong>
-  );
+  return <span ref={ref}>{count.toLocaleString("en-IN")}+</span>;
 }
 
-export function HistoricalFigures({ branches, members, label }: Props) {
+export function HistoricalFigures() {
   return (
     <section className="historical-figures section-pad">
-      <p className="eyebrow">{label}</p>
+      <p className="eyebrow">
+        Historical figures from the organisation's initial phase
+      </p>
+
       <div className="historical-figure-grid">
         <article>
-          <CountUp value={branches} label="historical branches" />
+          <strong><AnimatedNumber target={30} /></strong>
           <span>Branches established during the initial phase</span>
         </article>
+
         <article>
-          <CountUp value={members} label="historical members" />
+          <strong><AnimatedNumber target={500} /></strong>
           <span>Members associated during the initial phase</span>
         </article>
       </div>
+
       <p className="historical-stat-note">
         These are historical figures, not current statistics. Current branch
         addresses and contact details will be published once verified.
