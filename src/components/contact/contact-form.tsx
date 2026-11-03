@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import type { FormEvent } from "react";
@@ -144,12 +144,12 @@ export function ContactForm({ serviceReady }: { serviceReady: boolean }) {
         type="submit"
       >
         {state.status === "sending" ? "Sending..." : "Send message"}
-        <span aria-hidden="true">→</span>
+        <span aria-hidden="true">â†’</span>
       </button>
 
       {!serviceReady && (
         <p className="form-feedback">
-          Online message delivery is temporarily unavailable. Please try again later.
+          We couldn't send your message. Please try again.
         </p>
       )}
 
